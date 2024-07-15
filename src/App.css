@@ -1,38 +1,638 @@
-.App {
+/* Container for the grid layout */
+.grid-container {
+  display: grid;
+  grid-template-columns: 1.4fr 2.25fr 0.85fr; /* Adjusts the size ratio of the three columns */
+  height: 100vh; /* Sets the height to be 100% of the viewport height */
+  margin: 0;
+  position: relative; /* Add position: relative to the grid-container */
+}
+
+/* Middle column with two rows */
+.middle-column {
+  display: grid;
+  grid-template-rows: 2fr 1fr; /* Divides the middle column into two rows */
+}
+
+/* Borders for left and middle columns */
+.left-column,
+.middle-column {
+  border-right: 3px dashed #a39d9d; /* Adds a border to the right side of the left and middle columns */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .grid-container {
+    grid-template-columns: 1fr; /* Stacks all columns vertically on smaller screens */
+  }
+
+  .middle-column {
+    grid-template-rows: auto; /* Adjusts rows in middle column for stacked layout */
+  }
+}
+
+/* General body styles */
+body {
+  font-family: "Roboto", sans-serif;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+/* Center text alignment for headings and columns */
+h2,
+h3,
+.column {
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+/* Image styling */
+.image {
+  height: 50px;
+  width: 50px;
+  margin-top: 8px;
+  margin-left: 10px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+/* Heading styling */
+.heading {
+  margin-top: -30px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+/* SVG background styling */
+svg.background {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0px;
+  left: 0px;
+  z-index: -1;
+}
+
+/* Smaller boxes styling */
+.smaller-boxes .box {
+  width: 20.5%;
+  margin: 0px !important;
+  padding: 1px !important;
+}
+
+.smaller-boxes {
+  flex-direction: row !important;
+  align-content: start !important;
+  justify-content: flex-start !important;
+  gap: 2em !important;
+}
+
+/* Box styling */
+.box {
+  width: 55%;
+  background-color: rgb(231, 227, 227); /* White background for the boxes */
+  border-radius: 12px; /* Rounded corners */
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.4); /* Subtle shadow for 3D effect */
+  padding: 5px;
+  text-align: center; /* Center aligning the text */
+  transition: transform 0.3s ease-in-out;
+  position: relative;
+  border: 1px solid grey;
+}
+
+/* Box heading styling */
+.box h2 {
+  margin-top: 5px;
+  font-size: 22px;
+  margin-bottom: 0 !important;
+  border: none;
+}
+
+/* Box paragraph styling */
+.box p {
+  font-size: 16px;
+  color: #666; /* Lighter text color for paragraph */
+  margin-bottom: 4px !important;
+}
+
+/* Box hover effect */
+.box:hover {
+  transform: translateY(-2.5px); /* Slight raise effect on hover */
+}
+
+/* Container styling */
+.container {
   display: flex;
+  flex-wrap: wrap;
+  flex-basis: auto;
   flex-direction: column;
-  align-items: center;
+  align-content: space-around;
+  justify-content: space-evenly;
+  height: 85%;
+  overflow: hidden;
+  padding: 2.75em;
+}
+
+/* Containerx styling */
+.containerx {
+  display: flex;
+  flex-wrap: wrap;
+  flex-basis: auto;
+  flex-direction: column;
+  align-content: space-around;
+  justify-content: space-evenly;
+  overflow: hidden;
+  padding: 0em;
+}
+
+/* Admin section styling */
+.admin-section {
+  border-top: 3px dashed rgb(234, 164, 164);
+  width: 100%;
+  height: 100%;
+  background: rgb(247, 220, 220);
+}
+
+/* Icon styling */
+i {
+  margin-right: 7.5px;
+}
+
+/* Main icon styling */
+.main-icon {
+  margin: 10px 0;
+  font-size: 40px;
+  color: grey;
+}
+
+/* Paragraph styling */
+p {
+  margin: 10px 0 !important;
+}
+
+/* Box SVG styling */
+.box svg {
+  margin-top: 5px;
+  fill: #6b6666;
+  margin-left: 15px;
+  width: 50px;
+  width: 45px;
+  height: 45px;
+}
+
+/* Textgen styling */
+.textgen {
+  background: linear-gradient(
+    180deg,
+    rgba(222, 198, 222, 1) 0%,
+    rgba(222, 198, 222, 0.4) 100%
+  );
+}
+
+/* Imagegen styling */
+.imagegen {
+  background: linear-gradient(
+    180deg,
+    rgba(217, 217, 247, 1) 0%,
+    rgba(217, 217, 247, 0.4) 100%
+  );
+}
+
+/* New sticker styling */
+.new-sticker {
+  position: absolute;
+  top: -13px; /* Adjusted to position the star correctly */
+  left: -13px; /* Adjusted to position the star correctly */
+  background-color: #ffe600;
+  color: black;
+  padding: 10px;
+  font-size: 12px;
+  font-weight: bold;
+  width: 25px; /* Ensures the text fits within the star */
+  height: 25px; /* Ensures the text fits within the star */
+  display: flex;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  align-items: center;
+  border-radius: 50%;
 }
 
-.App-link {
-  color: #61dafb;
+/* Smaller boxes main icon styling */
+.smaller-boxes .box .main-icon {
+  color: black;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
+/* Smaller boxes heading styling */
+.smaller-boxes .box h2 {
+  font-size: 18px;
+}
+
+/* Smaller boxes icon styling */
+.smaller-boxes .box i {
+  font-size: 32px;
+}
+
+/* Scrollable styling */
+.scrollable {
+  overflow-y: auto;
+  max-height: 45vh;
+  padding: 25px 45px !important;
+}
+
+/* Admin section box styling */
+.admin-section .box {
+  border: 2px solid red;
+  background: #fff !important;
+}
+
+/* Admin section paragraph styling */
+.admin-section .box p {
+  color: black !important;
+}
+
+/* Admin section heading styling */
+.admin-section h3 {
+  margin-bottom: 0 !important;
+}
+
+/* Right column section styling */
+.right-column section {
+  display: flex;
+  align-items: center;
+  height: calc(100% - 100px);
+}
+
+/* Search bar input styling */
+.search-bar input {
+  height: 42px;
+  border-radius: 10px;
+  font-size: 18px;
+  width: 90%;
+  margin-top: 5px;
+  padding: 0 15px;
+}
+
+/* Checkbox container styling */
+.checkbox-container {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 18px;
+  user-select: none;
+}
+
+/* Checkbox input styling */
+.checkbox-container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Checkmark styling */
+.checkmark {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+  height: 25px;
+  width: 25px;
+  background-color: #fff;
+  border-radius: 5px; /* Optional: if you want rounded corners */
+  border: 1px solid black;
+}
+
+/* Checkmark hover effect */
+.checkbox-container:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+
+/* Checkmark checked effect */
+.checkbox-container input:checked ~ .checkmark {
+  background-color: #2196f3;
+}
+
+/* Checkmark after effect */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Checkmark after checked effect */
+.checkbox-container input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Checkmark after styling */
+.checkbox-container .checkmark:after {
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  transform: rotate(45deg);
+}
+
+/* Dashed line styling */
+.dashed-line {
+  border-left: 3px dashed #ccc;
+  left: 537px;
+  top: 0;
+  height: 100%;
+  position: absolute;
+}
+
+/* Animation for dash effect */
+@keyframes dash {
   to {
-    transform: rotate(360deg);
+    background-position: 20px 0;
   }
 }
+
+/* Browser styling */
+.browser {
+  overflow: hidden;
+  width: 92%;
+  max-width: 600px;
+  border: 1px solid #9c9999;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 5px 7px 8px 2px grey;
+  margin: 0 auto;
+  height: 25vh;
+}
+
+/* Browser toolbar styling */
+.browser-toolbar {
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  background-color: #d3cdcd;
+  border-bottom: 1px solid #ccc;
+}
+
+/* Link styling */
+.link {
+  position: absolute;
+  justify-content: center;
+  text-align: center;
+  padding-left: 100px;
+  padding-top: 50px;
+}
+
+/* Button styling */
+.btn {
+  height: 30px;
+  width: 70px;
+  font-size: 15px;
+  border-radius: 8px;
+  margin-top: 0px;
+  background-color: #ccc;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background-color: #9c9999;
+}
+
+/* Nav button styling */
+.nav-button {
+  padding: 5px;
+  margin-right: 5px;
+  font-size: 16px;
+  background-color: #e1e1e1;
+  border: none;
+  cursor: none;
+  border-radius: 4px;
+}
+
+/* Address bar styling */
+.address-bar {
+  flex-grow: 1;
+  padding: 5px 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+/* Browser viewport styling */
+.browser-viewport {
+  padding: 2px;
+}
+
+/* Traffic light styling */
+.traffic-light {
+  display: flex;
+  align-items: center;
+  margin: 0 10px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin-right: 5px;
+}
+
+.red {
+  background-color: #ff605c;
+}
+
+.yellow {
+  background-color: #ffbd44;
+}
+
+.green {
+  background-color: #00ca56;
+}
+
+.dashed-line {
+  flex-grow: 1;
+  border-top: 3px dashed black;
+  animation: dash 2s linear infinite;
+  margin: 0 50px;
+}
+
+/* Left column section styling */
+.left-column section {
+  padding: 0.5em;
+  height: 150px;
+  border: 1px solid black;
+  border-radius: 15px;
+  margin: -20px 5% 20px 5%;
+  box-shadow: 5px 5px 5px grey;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.25) 0%,
+    rgba(0, 0, 0, 0.2) 100%
+  );
+  text-align: center;
+  font-weight: 400;
+  font-size: 0.8em;
+  margin-bottom: 40px;
+}
+
+/* Color theme selector styling */
+.colortheme-selector > div {
+  border: 2px dashed black;
+  background-color: grey;
+  padding: 15px;
+  color: white;
+  border-radius: 15px;
+  width: 100%;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+/* Color theme selector container styling */
+.colortheme-selector {
+  display: flex;
+  flex-direction: row;
+  gap: 2em;
+  margin-top: 30px;
+}
+
+/* H5 heading styling */
+h5 {
+  text-align: start !important;
+  font-size: 20px !important;
+  margin: 15px 0 0 25px !important;
+}
+
+/* Keyframe animation for dash */
+@keyframes dash {
+  to {
+    background-position: 20px 0;
+  }
+}
+
+/* Selected color styling */
+.selected-color {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: #ffe600;
+  display: inline-block;
+  float: left;
+  border: 2px solid black;
+  padding: 2px;
+}
+
+.left-column section {
+  margin-top: -400px;
+}
+
+/* Resize handle styling */
+.resize-handle {
+  position: absolute;
+  top: 0;
+  left: 460px; /* Position to the right of the left column */
+  width: 4px;
+  height: 100%;
+  background-color: #ccc;
+  opacity: 0;
+  cursor: col-resize;
+  z-index: 10; /* Ensure the handle is on top */
+}
+
+/* Box custom styling */
+.boxcustom {
+  cursor: pointer;
+  background-color: white !important;
+}
+
+.boxcustom.selected {
+  border: 2px solid blue;
+}
+
+.smaller-boxes.boxcustom {
+  width: 16%;
+  margin: 0px !important;
+  padding: 1px !important;
+}
+
+.loaded .ip-main .browser .box,
+.loaded .boxcustom,
+.loaded .codrops-demos {
+  -webkit-animation: animLoadedContent 1s cubic-bezier(0.7, 0, 0.3, 1) both;
+  animation: animLoadedContent 1s cubic-bezier(0.7, 0, 0.3, 1) both;
+}
+
+.boxcustom {
+  width: 55%;
+  border-radius: 12px;
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.4);
+  padding: 5px;
+  text-align: center;
+  transition: transform 0.3s ease-in-out;
+  position: relative;
+  border: 1px solid grey;
+}
+
+.layout-selector .boxcustom svg {
+  width: 86% !important;
+  margin: 15px !important;
+}
+
+.boxcustom.box {
+  border: 2px solid transparent;
+}
+
+.boxcustom.selected {
+  border: 2px solid blue; /* Change border color to indicate selection */
+  background-color: #d3e5ff;
+}
+
+/* Alert styling */
+.alert {
+  padding: 20px;
+  background-color: green; /* Red */
+  color: white;
+  margin-bottom: 15px;
+  display: none; /* Hidden by default */
+  text-align: center;
+}
+
+.alert .closebtn {
+  margin-left: 15px;
+  color: white;
+  font-weight: bold;
+  float: right;
+  font-size: 22px;
+  line-height: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.alert .closebtn:hover {
+  color: black;
+}
+
+/* Button styling */
+.btn {
+  height: 30px;
+  width: 70px;
+  font-size: 15px;
+  border-radius: 8px;
+  margin-top: 20px;
+  background-color: #ccc;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background-color: #9c9999;
+}
+
+.alert-box {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: green;
+  color: white;
+  padding: 15px;
+  z-index: 1000;
+  width: 100%;
+  text-align: center;
+  font-size: 16px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.alert-box.hide {
+  display: none;
+}
+
