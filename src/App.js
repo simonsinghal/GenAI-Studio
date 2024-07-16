@@ -9,51 +9,17 @@ import ThemeUploader from "./components/themeUploader";
 import LogoUpload from "./components/logoUpload";
 
 function App() {
-  useEffect(() => {
-    const resizeHandle = document.querySelector(".resize-handle");
-    const leftColumn = document.querySelector(".left-column");
-    const middleColumn = document.querySelector(".middle-column");
-    let isResizing = false;
-    let initialX = 0;
-    let initialLeftWidth = 0;
-    let initialMiddleWidth = 0;
-
-    const handleMouseDown = (e) => {
-      isResizing = true;
-      initialX = e.clientX;
-      initialLeftWidth = leftColumn.offsetWidth;
-      initialMiddleWidth = middleColumn.offsetWidth;
-      document.body.style.cursor = "col-resize";
-      e.preventDefault();
-    };
-
-    const handleMouseMove = (e) => {
-      if (isResizing) {
-        const deltaX = e.clientX - initialX;
-        leftColumn.style.width = `${initialLeftWidth + deltaX}px`;
-        middleColumn.style.width = `${initialMiddleWidth - deltaX}px`;
-      }
-    };
-
-    const handleMouseUp = () => {
-      if (isResizing) {
-        isResizing = false;
-        document.body.style.cursor = "default";
-      }
-    };
-
-    resizeHandle.addEventListener("mousedown", handleMouseDown);
-    document.addEventListener("mousemove", handleMouseMove);
-    document.addEventListener("mouseup", handleMouseUp);
-
-    return () => {
-      resizeHandle.removeEventListener("mousedown", handleMouseDown);
-      document.removeEventListener("mousemove", handleMouseMove);
-      document.removeEventListener("mouseup", handleMouseUp);
-    };
-  }, []);
-
   const [itemsWithPrices, setItemsWithPrices] = useState([]);
+  const [totalCost, setTotalCost] = useState(0);
+
+  useEffect(() => {
+    // Calculate total cost whenever itemsWithPrices changes
+    const calculatedTotalCost = itemsWithPrices.reduce(
+      (total, item) => total + item.price,
+      0
+    );
+    setTotalCost(calculatedTotalCost);
+  }, [itemsWithPrices]);
 
   // Function to handle adding selected items to the table
   const handleAddToTable = (item) => {
@@ -70,9 +36,7 @@ function App() {
       <LeftColumn />
       <div className="resize-handle"></div>
       <MiddleColumn />
-      <LogoUpload />
-      <ThemeUploader />
-      <RightColumn itemsWithPrices={itemsWithPrices} />
+      <RightColumn itemsWithPrices={itemsWithPrices} totalCost={totalCost} />
     </div>
   );
 
@@ -107,7 +71,8 @@ function App() {
     );
   }
 }
-const RightColumn = ({ itemsWithPrices }) => (
+
+const RightColumn = ({ itemsWithPrices, totalCost }) => (
   <div className="right-column column">
     <h2>End application</h2>
     <section>
@@ -134,16 +99,18 @@ const RightColumn = ({ itemsWithPrices }) => (
             alt="App Preview"
           />
         </div>
-        <div className="link">
-          <button className="btn" type="submit">
-            Publish
-          </button>
-        </div>
+      </div>
+    </section>
+    <section>
+      <div className="link">
+        <button className="btn" type="submit">
+          Publish
+        </button>
       </div>
     </section>
     <section className="selected-items">
-      <h3>Selected Items</h3>
       <div className="table-container">
+        <h3>Selected Items</h3>
         <table>
           <thead>
             <tr>
@@ -158,6 +125,14 @@ const RightColumn = ({ itemsWithPrices }) => (
                 <td>${item.price}</td>
               </tr>
             ))}
+            <tr>
+              <td>
+                <strong>Total Cost</strong>
+              </td>
+              <td>
+                <strong>${totalCost}</strong>
+              </td>
+            </tr>
           </tbody>
         </table>
       </div>
