@@ -2,127 +2,80 @@ import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFile, faImage } from "@fortawesome/free-solid-svg-icons";
 
-const AppSelection = () => {
+const AppSelection = ({ handleAddToTable }) => {
   const [selectedItems, setSelectedItems] = useState([]);
-  const [alertMessage, setAlertMessage] = useState('');
 
-  const handleCheckboxClick = (labelText, isChecked) => {
-    let updatedItems = [...selectedItems];
-    if (isChecked) {
-      updatedItems.push(labelText);
-      showAlert(`Successfully added ${updatedItems.join(', ')}`);
+  const handleCheckboxClick = (app) => {
+    const itemExists = selectedItems.find((selectedItem) => selectedItem.label === app.label);
+
+    if (!itemExists) {
+      handleAddToTable(app); // Add item to table
+      setSelectedItems([...selectedItems, app]);
     } else {
-      updatedItems = updatedItems.filter(item => item !== labelText);
+      setSelectedItems(selectedItems.filter((item) => item.label !== app.label));
     }
-    setSelectedItems(updatedItems);
-  };
-
-  const showAlert = (message) => {
-    setAlertMessage(message);
-    setTimeout(() => {
-      setAlertMessage('');
-    }, 4000); 
   };
 
   return (
     <div className="scrollable container smaller-boxes">
-    {alertMessage && (
-      <div id="alertBox" className="alert-box">
-        <p id="alertMessage">{alertMessage}</p>
-      </div>
-    )}
-      <AppBox
-        className="imagegen new"
-        id="largeCheckbox1"
-        label="DALL-E 3"
-        description="Image Generation"
-        icon={faImage}
-        isNew
-        onCheckboxClick={handleCheckboxClick}
-      />
-      <AppBox
-        className="imagegen"
-        label="DALL-E 2"
-        description="Image Generation"
-        icon={faImage}
-        onCheckboxClick={handleCheckboxClick}
-      />
-      <AppBox
-        className="textgen"
-        label="Document Intelligence"
-        description="Text Generation"
-        icon={faFile}
-        onCheckboxClick={handleCheckboxClick}
-      />
-      <AppBox
-        className="textgen"
-        label="Document Structuring"
-        description="Text Generation"
-        icon={faFile}
-        onCheckboxClick={handleCheckboxClick}
-      />
-      <AppBox
-        className="imagegen new"
-        id="largeCheckbox2"
-        label="DALL-E 3"
-        description="Image Generation"
-        icon={faImage}
-        isNew
-        onCheckboxClick={handleCheckboxClick}
-      />
-      <AppBox
-        className="imagegen"
-        label="DALL-E 2"
-        description="Image Generation"
-        icon={faImage}
-        onCheckboxClick={handleCheckboxClick}
-      />
-      <AppBox
-        className="textgen"
-        label="Document Intelligence"
-        description="Text Generation"
-        icon={faFile}
-        onCheckboxClick={handleCheckboxClick}
-      />
-      <AppBox
-        className="textgen"
-        label="Document Structuring"
-        description="Text Generation"
-        icon={faFile}
-        onCheckboxClick={handleCheckboxClick}
-      />
+      {selectedItems.length > 0 && (
+        <div id="selectedItems">
+          <h3>Selected Items:</h3>
+          <ul>
+            {selectedItems.map((item, index) => (
+              <li key={index}>{item.label}</li>
+            ))}
+          </ul>
+        </div>
+      )}
+      {appData.map((app, index) => (
+        <AppBox
+          key={index}
+          app={app}
+          selectedItems={selectedItems}
+          handleCheckboxClick={handleCheckboxClick}
+        />
+      ))}
     </div>
   );
 };
 
-const AppBox = ({ className, id, label, description, icon, isNew, onCheckboxClick }) => {
-  const [isChecked, setIsChecked] = useState(false);
+const AppBox = ({ app, selectedItems, handleCheckboxClick }) => {
+  const isChecked = selectedItems.some((item) => item.label === app.label);
 
-  const handleChange = (event) => {
-    const checked = event.target.checked;
-    setIsChecked(checked);
-    onCheckboxClick(label, checked);
+  const handleChange = () => {
+    handleCheckboxClick(app);
   };
 
   return (
-    <div className={`box ${className}`}>
+    <div className={`box ${app.className}`}>
       <label className="checkbox-container">
         <input
           type="checkbox"
           className="largeCheckbox"
-          id={id}
           checked={isChecked}
           onChange={handleChange}
         />
         <span className="checkmark"></span>
       </label>
-      {isNew && <div className="new-sticker">NEW</div>}
-      <FontAwesomeIcon icon={icon} className="main-icon" />
-      <h2>{label}</h2>
-      <p>{description}</p>
+      {app.isNew && <div className="new-sticker">NEW</div>}
+      <FontAwesomeIcon icon={app.icon} className="main-icon" />
+      <h2>{app.label}</h2>
+      <p>{app.description}</p>
+      <p className="price">${app.price}</p>
     </div>
   );
 };
 
+const appData = [
+  { className: "imagegen new", id: "largeCheckbox1", label: "DALL-E 3", description: "Image Generation", icon: faImage, isNew: true, price: 100 },
+  { className: "imagegen", label: "DALL-E 2", description: "Image Generation", icon: faImage, price: 80 },
+  { className: "textgen", label: "Document Intelligence", description: "Text Generation", icon: faFile, price: 120 },
+  { className: "textgen", label: "Document Structuring", description: "Text Generation", icon: faFile, price: 110 },
+  { className: "imagegen new", id: "largeCheckbox2", label: "DALL-E 3", description: "Image Generation", icon: faImage, isNew: true, price: 100 },
+  { className: "imagegen", label: "DALL-E 2", description: "Image Generation", icon: faImage, price: 80 },
+  { className: "textgen", label: "Document Intelligence", description: "Text Generation", icon: faFile, price: 120 },
+  { className: "textgen", label: "Document Structuring", description: "Text Generation", icon: faFile, price: 110 }
+];
 
 export default AppSelection;
