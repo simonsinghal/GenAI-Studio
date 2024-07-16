@@ -66,7 +66,7 @@ const LayoutSelector = () => {
               fillRule="evenodd"
               d="M58 1H8a7 7 0 0 0-7 7v40a7 7 0 0 0 7 7h50a7 7 0 0 0 7-7V8a7 7 0 0 0-7-7ZM8 0a8 8 0 0 0-8 8v40a8 8 0 0 0 8 8h50a8 8 0 0 0 8-8V8a8 8 0 0 0-8-8H8Z"
               clipRule="evenodd"
-              opacity="0.1"
+              opacity="0.2"
             ></path>
             <path
               fill="currentColor"
@@ -160,12 +160,12 @@ const LayoutSelector = () => {
             <path
               fill="currentColor"
               d="M16 9.5A1.5 1.5 0 0 1 17.5 8h14a1.5 1.5 0 0 1 0 3h-14A1.5 1.5 0 0 1 16 9.5Z"
-              opacity="0.7"
+              opacity="0.1"
             ></path>
             <path
               fill="currentColor"
               d="M37 9.5A1.5 1.5 0 0 1 38.5 8h11a1.5 1.5 0 0 1 0 3h-11A1.5 1.5 0 0 1 37 9.5Z"
-              opacity="0.4"
+              opacity="0.1"
             ></path>
           </svg>
         </div>
